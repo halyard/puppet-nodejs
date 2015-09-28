@@ -6,6 +6,12 @@ puppet-nodejs
 
 Module to handle nodejs version management with [nodenv](http://github.com/OiNutter/nodenv) for boxen, based on boxen's [ruby module](http://github.com/boxen/puppet-ruby)
 
+## Changes from upstream
+
+* Clean up meta files
+* Set up CircleCI builds
+* Switch to function bindings vs puppet-module-data
+
 ## Usage
 
 In your hiera config:
