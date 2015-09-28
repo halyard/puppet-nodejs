@@ -1,39 +1,45 @@
-# Node Puppet Module for Boxen
+puppet-nodejs
+===========
 
-[![Build Status](https://travis-ci.org/boxen/puppet-nodejs.svg?branch=master)](https://travis-ci.org/boxen/puppet-nodejs)
-[![GitHub release](https://img.shields.io/github/release/boxen/puppet-nodejs.svg)](http://github.com/boxen/puppet-nodejs/releases)
+[![MIT Licensed](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://tldrlegal.com/license/mit-license)
+[![Build Status](https://img.shields.io/circleci/project/halyard/puppet-nodejs.svg)](https://circleci.com/gh/halyard/puppet-nodejs)
 
-Requires the following boxen modules:
-
-* `boxen >= 3.2.0`
-* `repository >= 2.1`
-* [ripienaar/puppet-module-data](https://github.com/ripienaar/puppet-module-data)
-
-## About
-
-This module supports node version management with nodenv from [OiNutter](http://github.com/OiNutter/nodenv).
-Is heavily based on the official boxen's [ruby module](http://github.com/boxen/puppet-ruby).
-All node versions are installed into `/opt/nodes`.
-
-## About node-build version
-
-Occasional bumps to the default node-build version are fine, on this module, but not essential.
-The node-build version is something you should be managing in your own boxen repository,
-rather than depending on this module to update for you. See examples on how to change the node-build
-version in the Hiera section.
-
-You can find a release list of versions for node-build [here](https://github.com/OiNutter/node-build/releases).
-
-## Breakages since last major version
-
-* nodes now live in `/opt/nodes` instead of `/opt/boxen/nodenv/versions`
-* the module-data module is now **required**
-* use of [OiNutter/nodenv](http://github.com/OiNutter/nodenv) instead of wfarr's version
-* use of [OiNutter/node-build](http://github.com/OiNutter/node-build)
-* npm packages are installed with `npm_module` instead of `nodejs::module`
-* node versions are defined without the leading `v` (`0.10.36` instead of `v0.10.36`)
+Module to handle nodejs version management with [nodenv](http://github.com/OiNutter/nodenv) for boxen, based on boxen's [ruby module](http://github.com/boxen/puppet-ruby)
 
 ## Usage
+
+In your hiera config:
+
+```
+"nodejs::provider": "nodenv"
+"nodejs::user": "deploy"
+
+# https://github.com/OiNutter/node-build/releases
+"nodejs::build::ensure": "f18b3d67756d1cb25ba6e35044f816fd67211b33"
+"nodejs::nodenv::ensure": "v0.2.0"
+
+# nodenv plugins
+"nodejs::nodenv::plugins":
+  "nodenv-vars":
+    "ensure": "ee42cd9db3f3fca2a77862ae05a410947c33ba09"
+    "source": "OiNutter/nodenv-vars"
+
+# Environment variables for building specific versions
+# You'll want to enable hiera's "deeper" merge strategy
+# See http://docs.puppetlabs.com/hiera/1/configuring.html#mergebehavior
+"nodejs::version::env":
+  "0.4.2":
+    "CC": "gcc"
+
+# Version aliases, commonly used to bless a specific version
+# Use the "deeper" merge strategy, as with nodejs::version::env
+"nodejs::version::alias":
+  "0.10": "0.10.36"
+  "0.12": "0.12.0"
+  "iojs-1.6": "iojs-1.6.2"
+```
+
+In your manifest:
 
 ```puppet
 # Set the global default node (auto-installs it if it can)
@@ -72,46 +78,8 @@ nodejs::nodenv::plugin { 'nodenv-vars':
 }
 ```
 
-## Hiera configuration
+## Required Puppet Modules
 
-The following variables may be automatically overridden with Hiera:
+* [boxen](https://github.com/halyard/puppet-boxen)
+* [repository](https://github.com/halyard/puppet-repository)
 
-``` yaml
----
-
-"nodejs::provider": "nodenv"
-"nodejs::user": "deploy"
-
-"nodejs::build::ensure": "f18b3d67756d1cb25ba6e35044f816fd67211b33"
-"nodejs::nodenv::ensure": "v0.2.0"
-
-# nodenv plugins
-"nodejs::nodenv::plugins":
-  "nodenv-vars":
-    "ensure": "ee42cd9db3f3fca2a77862ae05a410947c33ba09"
-    "source": "OiNutter/nodenv-vars"
-
-
-# Environment variables for building specific versions
-# You'll want to enable hiera's "deeper" merge strategy
-# See http://docs.puppetlabs.com/hiera/1/configuring.html#mergebehavior
-"nodejs::version::env":
-  "0.4.2":
-    "CC": "gcc"
-
-# Version aliases, commonly used to bless a specific version
-# Use the "deeper" merge strategy, as with nodejs::version::env
-"nodejs::version::alias":
-  "0.10": "0.10.36"
-  "0.12": "0.12.0"
-  "iojs-1.6": "iojs-1.6.2"
-```
-
-It is **required** that you include
-[ripienaar/puppet-module-data](https://github.com/ripienaar/puppet-module-data)
-in your boxen project, as this module now ships with many pre-defined versions
-and aliases in the `data/` directory. With this module included, those
-definitions will be automatically loaded, but can be overridden easily in your
-own hierarchy.
-
-You can also use JSON if your Hiera is configured for that.
