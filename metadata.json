@@ -1,0 +1,22 @@
+{
+  "name": "halyard-nodejs",
+  "version": "5.0.1",
+  "author": "Les Aker",
+  "license": "MIT",
+  "summary": "Configure nodejs via Boxen",
+  "source": "https://github.com/halyard/puppet-nodejs",
+  "project_page": "https://github.com/halyard/puppet-nodejs",
+  "issues_url": "https://github.com/halyard/puppet-nodejs/issues",
+  "dependencies": [
+
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Darwin",
+      "operatingsystemmajrelease": [
+        "14",
+        "15"
+      ]
+    }
+  ]
+}

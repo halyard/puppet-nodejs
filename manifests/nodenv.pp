@@ -4,7 +4,7 @@
 #
 #     include nodejs::nodenv
 #
-# Normally internal use only; will be automatically included by the `nodejs` class
+# Normally internal use only; will be automatically included by the nodejs class
 # if `nodejs::provider` is set to "nodenv"
 
 class nodejs::nodenv(

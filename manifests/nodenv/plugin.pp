@@ -16,7 +16,10 @@ define nodejs::nodenv::plugin($ensure, $source) {
       ensure  => directory,
       require => Repository[$nodejs::nodenv::prefix]
     }
-    ensure_resource('file', "${nodejs::nodenv::prefix}/plugins", $plugins_dir_params)
+    ensure_resource(
+      'file',
+      "${nodejs::nodenv::prefix}/plugins",
+      $plugins_dir_params)
 
     repository { "${nodejs::nodenv::prefix}/plugins/${name}":
       ensure  => $ensure,
