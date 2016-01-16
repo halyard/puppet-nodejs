@@ -1,7 +1,7 @@
 Puppet::Functions.create_function(:'nodejs::data') do
   def data
-    user = lookupvar('::boxen_user')
-    prefix = lookupvar('::boxen::config::home')
+    user = closure_scope.lookupvar('::boxen_user')
+    prefix = closure_scope.lookupvar('::boxen::config::home')
     {
       'nodejs::prefix' => prefix,
       'nodejs::provider' => 'nodenv',
