@@ -1,6 +1,6 @@
 {
   "name": "halyard-nodejs",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "author": "Les Aker",
   "license": "MIT",
   "summary": "Configure nodejs via Boxen",
