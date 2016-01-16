@@ -1,5 +1,5 @@
-module Puppet::Parser::Functions
-  newfunction(:'nodejs::data', :type => :rvalue) do
+Puppet::Functions.create_function(:'nodejs::data') do
+  def data
     user = lookupvar('::boxen_user')
     prefix = lookupvar('::boxen::config::home')
     {
