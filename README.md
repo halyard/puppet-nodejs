@@ -4,7 +4,7 @@ puppet-nodejs
 [![Puppet Forge](https://img.shields.io/puppetforge/v/halyard/nodejs.svg)](https://forge.puppetlabs.com/halyard/nodejs)
 [![Dependency Status](https://img.shields.io/gemnasium/halyard/puppet-nodejs.svg)](https://gemnasium.com/halyard/puppet-nodejs)
 [![MIT Licensed](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://tldrlegal.com/license/mit-license)
-[![Build Status](https://img.shields.io/circleci/project/halyard/puppet-nodejs.svg)](https://circleci.com/gh/halyard/puppet-nodejs)
+[![Build Status](https://img.shields.io/circleci/project/halyard/puppet-nodejs/master.svg)](https://circleci.com/gh/halyard/puppet-nodejs)
 
 Module to handle nodejs version management with [nodenv](http://github.com/OiNutter/nodenv) for boxen, based on boxen's [ruby module](http://github.com/boxen/puppet-ruby)
 
