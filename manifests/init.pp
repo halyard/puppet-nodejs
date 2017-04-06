@@ -28,8 +28,8 @@ class nodejs(
     owner  => $user,
   }
 
-  Class['nodejs::build'] ->
-    Class[$provider_class] ->
-    Nodejs <| |> ->
-    Npm_module <| |>
+  Class['nodejs::build']
+  -> Class[$provider_class]
+  -> Nodejs <| |>
+  -> Npm_module <| |>
 }
